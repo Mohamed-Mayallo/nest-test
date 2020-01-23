@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UsersModule } from './users/users.module';
-import { databaseProviders } from './database.providers';
+import { DatabasesModule } from './databases/databases.module';
 
 @Module({
-  providers: [...databaseProviders],
-  exports: [...databaseProviders],
+  providers: [],
+  exports: [],
   imports: [
     GraphQLModule.forRoot({
       playground: true,
@@ -13,6 +13,7 @@ import { databaseProviders } from './database.providers';
       autoSchemaFile: 'schema.gql',
       installSubscriptionHandlers: true
     }),
+    DatabasesModule,
     UsersModule
   ]
 })
