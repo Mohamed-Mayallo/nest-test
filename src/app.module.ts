@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UsersModule } from './users/users.module';
+import { databaseProviders } from './database.providers';
 
 @Module({
-  providers: [],
+  providers: [...databaseProviders],
+  exports: [...databaseProviders],
   imports: [
     GraphQLModule.forRoot({
       playground: true,

@@ -3,13 +3,35 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input CreateUserDto {
+  name: String!
+}
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
+type Mutation {
+  createUser(input: CreateUserDto!): Users!
+}
+
 type Query {
-  users: [User!]!
-  user(id: Float!): User!
+  users: [Users!]!
+  user(id: String!): Users!
 }
 
 type User {
   id: ID!
   name: String!
   avgRate: Float!
+}
+
+type Users {
+  id: ID!
+  name: String!
+  avgRate: Float
+  creationDate: DateTime
+  updatedOn: DateTime
+  deletedAt: DateTime
 }
