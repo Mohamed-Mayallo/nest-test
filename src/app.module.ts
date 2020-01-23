@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UsersModule } from './users/users.module';
-import { RolesGuard } from './roles.guard';
 
 @Module({
-  providers: [RolesGuard],
+  providers: [],
   imports: [
     GraphQLModule.forRoot({
       playground: true,

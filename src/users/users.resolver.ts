@@ -2,6 +2,8 @@ import { Resolver, Query, Args, ResolveProperty } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { User } from './user.model';
 import { Roles } from '../roles.decorator';
+import { RolesGuard } from '../roles.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver(of => User)
 export class UsersResolver {
@@ -9,6 +11,7 @@ export class UsersResolver {
 
   @Query(of => [User])
   @Roles('admin')
+  @UseGuards(RolesGuard)
   async users() {
     return await this.service.users();
   }
