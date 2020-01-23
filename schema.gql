@@ -21,12 +21,6 @@ type Query {
   user(id: String!): Users!
 }
 
-type User {
-  id: ID!
-  name: String!
-  avgRate: Float!
-}
-
 type Users {
   id: ID!
   name: String!
