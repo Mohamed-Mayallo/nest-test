@@ -24,6 +24,7 @@ type Query {
 type Users {
   id: ID!
   name: String!
+  email: String!
   avgRate: Float
   creationDate: DateTime
   updatedOn: DateTime
