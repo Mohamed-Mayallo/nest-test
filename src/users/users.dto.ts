@@ -1,5 +1,7 @@
 import { InputType, Field } from 'type-graphql';
 import { IsEmail, MinLength, MaxLength } from 'class-validator';
+import { Upload } from '../upload.type';
+import { UploadScalar } from 'src/upload.scalar';
 
 @InputType()
 export class CreateUserDto {
@@ -11,6 +13,9 @@ export class CreateUserDto {
 
   @Field()
   readonly email: string;
+
+  @Field(type => UploadScalar, { nullable: true })
+  readonly avatar?: Upload;
 }
 
 @InputType()

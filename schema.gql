@@ -7,6 +7,7 @@ input CreateUserDto {
   name: String!
   password: String!
   email: String!
+  avatar: Upload
 }
 
 """
@@ -29,6 +30,9 @@ type Query {
   user(id: String!): Users!
 }
 
+"""Upload custom scalar type"""
+scalar Upload
+
 type Users {
   id: ID!
   name: String!
@@ -37,5 +41,6 @@ type Users {
   creationDate: DateTime
   updatedOn: DateTime
   deletedAt: DateTime
+  avatar: String
   token: String
 }

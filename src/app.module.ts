@@ -3,9 +3,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { UsersModule } from './users/users.module';
 import { DatabasesModule } from './databases/databases.module';
 import { ConfigModule } from '@nestjs/config';
+import { UploadScalar } from './upload.scalar';
 
 @Module({
-  providers: [],
+  providers: [UploadScalar],
   exports: [],
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -14,7 +15,8 @@ import { ConfigModule } from '@nestjs/config';
       debug: true,
       autoSchemaFile: 'schema.gql',
       installSubscriptionHandlers: true,
-      context: ({ req }) => ({ req })
+      context: ({ req }) => ({ req }),
+      uploads: true
     }),
     DatabasesModule,
     UsersModule

@@ -33,6 +33,7 @@ export class UsersService {
   }
 
   async createUser(input: CreateUserDto): Promise<Users> {
+    console.log(input, '>>>>>>>>>>>>>>>>>>>>>>ff');
     return await this.repo.create(input);
   }
 }
