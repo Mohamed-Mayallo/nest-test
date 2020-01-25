@@ -5,6 +5,8 @@
 
 input CreateUserDto {
   name: String!
+  password: String!
+  email: String!
 }
 
 """
@@ -12,8 +14,14 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
+input LoginDto {
+  email: String!
+  password: String!
+}
+
 type Mutation {
   createUser(input: CreateUserDto!): Users!
+  login(input: LoginDto!): Users!
 }
 
 type Query {
@@ -29,4 +37,5 @@ type Users {
   creationDate: DateTime
   updatedOn: DateTime
   deletedAt: DateTime
+  token: String
 }

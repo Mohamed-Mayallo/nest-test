@@ -3,7 +3,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { UsersModule } from './users/users.module';
 import { DatabasesModule } from './databases/databases.module';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
   providers: [],
@@ -14,11 +13,11 @@ import { AuthModule } from './auth/auth.module';
       playground: true,
       debug: true,
       autoSchemaFile: 'schema.gql',
-      installSubscriptionHandlers: true
+      installSubscriptionHandlers: true,
+      context: ({ req }) => ({ req })
     }),
     DatabasesModule,
-    UsersModule,
-    AuthModule
+    UsersModule
   ]
 })
 export class AppModule {}

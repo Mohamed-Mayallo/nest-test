@@ -10,7 +10,7 @@ export const config = (configService: ConfigService) => {
       username: configService.get('DB_USER'),
       password: configService.get('DB_PASS'),
       database: configService.get('DB_NAME'),
-      models: [__dirname + '/**/*.entity.js'],
+      models: [process.cwd() + '/**/*.entity.js'],
       modelMatch: (filename, member) => {
         return (
           filename.substring(0, filename.indexOf('.entity')) ===

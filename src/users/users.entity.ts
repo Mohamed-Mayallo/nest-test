@@ -53,4 +53,7 @@ export class Users extends Model<Users> {
   @DeletedAt
   @Column
   deletedAt?: Date;
+
+  @Field({ nullable: true })
+  token?: String;
 }

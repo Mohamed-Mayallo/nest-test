@@ -10,7 +10,8 @@ import { Users } from './users.entity';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
 import { UseGuards } from '@nestjs/common';
-import { CreateUserDto } from './users.dto';
+import { CreateUserDto, LoginDto } from './users.dto';
+import { CreateUserTransformer } from './users.pipe';
 
 @Resolver(of => Users)
 export class UsersResolver {
@@ -25,16 +26,21 @@ export class UsersResolver {
 
   @Query(of => Users)
   async user(@Args('id') id: string) {
-    return await this.service.user(id);
+    return await this.service.userById(id);
   }
 
   @ResolveProperty()
   avgRate(): number {
-    return 2;
+    return 5;
   }
 
   @Mutation(of => Users)
-  async createUser(@Args('input') input: CreateUserDto) {
+  async createUser(@Args('input', CreateUserTransformer) input: CreateUserDto) {
     return await this.service.createUser(input);
+  }
+
+  @Mutation(of => Users)
+  login(@Args('input') input: LoginDto) {
+    return this.service.emailPasswordBasedAuth(input.email, input.password);
   }
 }
