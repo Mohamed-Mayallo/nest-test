@@ -4,12 +4,14 @@ import { CreateUserDto } from './users.dto';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { ConfigService } from '@nestjs/config';
+import { UploadService } from 'src/upload/upload.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @Inject('USERS_REPOSITORY') private readonly repo: typeof Users,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly uploader: UploadService
   ) {}
 
   async userById(id: string): Promise<Users> {
@@ -33,7 +35,8 @@ export class UsersService {
   }
 
   async createUser(input: CreateUserDto): Promise<Users> {
-    console.log(input, '>>>>>>>>>>>>>>>>>>>>>>ff');
-    return await this.repo.create(input);
+    let avatar = await this.uploader.graphqlUpload(input.avatar, 'users');
+    console.log(Object.assign(input, { avatar }), '>>>>>>>');
+    return await this.repo.create(Object.assign(input, { avatar }));
   }
 }
