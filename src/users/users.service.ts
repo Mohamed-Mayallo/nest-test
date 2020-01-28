@@ -1,10 +1,17 @@
-import { Injectable, Inject, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  Inject,
+  UnauthorizedException,
+  HttpException,
+  HttpStatus
+} from '@nestjs/common';
 import { Users } from './users.entity';
 import { CreateUserDto } from './users.dto';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { ConfigService } from '@nestjs/config';
 import { UploadService } from 'src/upload/upload.service';
+import { ForbiddenException } from 'src/exceptions/forbidden.exception';
 
 @Injectable()
 export class UsersService {
@@ -31,12 +38,21 @@ export class UsersService {
   }
 
   async users(): Promise<Array<Users>> {
+    // throw new HttpException(
+    //   {
+    //     status: HttpStatus.FORBIDDEN,
+    //     error: 'This is a custom message',
+    //     code: 500,
+    //     other: 'Hi there'
+    //   },
+    //   403
+    // );
+    throw new ForbiddenException('en');
     return await this.repo.findAll();
   }
 
   async createUser(input: CreateUserDto): Promise<Users> {
     let avatar = await this.uploader.graphqlUpload(input.avatar, 'users');
-    console.log(Object.assign(input, { avatar }), '>>>>>>>');
     return await this.repo.create(Object.assign(input, { avatar }));
   }
 }
