@@ -7,7 +7,11 @@ import { ConfigService } from '@nestjs/config';
 export class UploadService {
   constructor(private readonly configService: ConfigService) {}
 
-  async graphqlUpload(file: Upload, saveTo: string, oldFile: string = null) {
+  async graphqlUpload(
+    file: Upload,
+    saveTo: string,
+    oldFile: string = null
+  ): Promise<boolean | string> {
     let { filename, createReadStream } = await file;
     let diskStorage = `${process.cwd()}/public/${saveTo}`;
     let fileUrl = `${this.configService.get('API_BASE')}/${saveTo}`;
@@ -33,7 +37,7 @@ export class UploadService {
     return url.split('/').reverse()[0];
   }
 
-  deleteFile(file: string, saveTo?: string) {
+  deleteFile(file: string, saveTo?: string): void {
     let filePath = file;
     if (saveTo)
       filePath = `${process.cwd()}/public/${saveTo}/${this.getFileNameFromUrl(

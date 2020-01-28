@@ -12,12 +12,13 @@ import { RolesGuard } from '../roles.guard';
 import { UseGuards } from '@nestjs/common';
 import { CreateUserDto, LoginDto } from './users.dto';
 import { CreateUserTransformer } from './users.pipe';
+import { UsersResponse } from './gqltypes';
 
 @Resolver(of => Users)
 export class UsersResolver {
   constructor(private readonly service: UsersService) {}
 
-  @Query(of => [Users])
+  @Query(of => UsersResponse)
   @Roles('admin')
   @UseGuards(RolesGuard)
   async users() {
