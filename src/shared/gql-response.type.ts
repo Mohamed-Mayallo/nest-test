@@ -24,12 +24,16 @@ export class GqlResponseInterceptor<T>
     const now = Date.now();
     return next.handle().pipe(
       map(res => {
-        console.log('*******************************');
+        console.log(
+          '********************************************************************'
+        );
         console.log(
           `${context.getHandler().name} operation takes ${Date.now() -
             now}ms at ${context.getClass().name} class`
         );
-        console.log('*******************************');
+        console.log(
+          '********************************************************************'
+        );
         return {
           code: 200,
           success: true,

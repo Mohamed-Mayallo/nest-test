@@ -3,9 +3,11 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './exceptions/exception-filter';
 import { GqlResponseInterceptor } from './shared/gql-response.type';
+import { ReplaceContextGuard } from './replace-context.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalGuards(new ReplaceContextGuard());
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new GqlResponseInterceptor());

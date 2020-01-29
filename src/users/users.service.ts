@@ -11,7 +11,6 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { ConfigService } from '@nestjs/config';
 import { UploadService } from 'src/upload/upload.service';
-import { BaseHttpException } from 'src/exceptions/base-http-exception';
 
 @Injectable()
 export class UsersService {
@@ -38,7 +37,6 @@ export class UsersService {
   }
 
   async users(): Promise<Array<Users>> {
-    // throw new BaseHttpException('en', 600);
     return await this.repo.findAll();
   }
 

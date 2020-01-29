@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migrate": "sequelize db:migrate --env development --url='postgresql://postgres:12345678@localhost:5432/nest-test'",
+    "migrate": "sequelize db:migrate --env development --url='postgresql://postgres:123456@localhost:5432/nest-test'",
     "mig:new": "cross-env-shell sequelize migration:generate --name=$MIG_NAME"
   },
   "dependencies": {
