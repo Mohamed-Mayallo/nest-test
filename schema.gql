@@ -21,22 +21,30 @@ input LoginDto {
 }
 
 type Mutation {
-  createUser(input: CreateUserDto!): Users!
-  login(input: LoginDto!): Users!
+  createUser(input: CreateUserDto!): UserResponse!
+  login(input: LoginDto!): UserResponse!
 }
 
 type Query {
   users: UsersResponse!
-  user(id: String!): Users!
+  user(id: String!): UserResponse!
 }
 
 """Upload custom scalar type"""
 scalar Upload
 
+type UserResponse {
+  code: Float!
+  success: Boolean!
+  message: String!
+  data: Users
+}
+
 type Users {
   id: ID!
   name: String!
   email: String!
+  role: String!
   avgRate: Float
   creationDate: DateTime
   updatedOn: DateTime

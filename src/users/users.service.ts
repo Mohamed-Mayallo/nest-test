@@ -11,6 +11,7 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { ConfigService } from '@nestjs/config';
 import { UploadService } from 'src/upload/upload.service';
+import { BaseHttpException } from 'src/exceptions/base-http-exception';
 
 @Injectable()
 export class UsersService {
@@ -30,7 +31,7 @@ export class UsersService {
   ): Promise<Users | void> {
     let user = await this.repo.findOne({ where: { email } });
     if (!user || !bcrypt.compareSync(password, user.password))
-      throw new UnauthorizedException();
+      throw new BaseHttpException('en', 601);
     return Object.assign(user, {
       token: jwt.sign({ id: user.id }, this.configService.get('JWT_SECRET'))
     });
@@ -41,7 +42,13 @@ export class UsersService {
   }
 
   async createUser(input: CreateUserDto): Promise<Users> {
-    let avatar = await this.uploader.graphqlUpload(input.avatar, 'users');
-    return await this.repo.create(Object.assign(input, { avatar }));
+    return await this.repo.create(
+      Object.assign(input, {
+        ...(input.avatar &&
+          typeof input.avatar === 'object' && {
+            avatar: await this.uploader.graphqlUpload(input.avatar, 'users')
+          })
+      })
+    );
   }
 }

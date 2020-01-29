@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { GqlOptionsFactory, GqlModuleOptions } from '@nestjs/graphql';
-import { Auth } from './auth.provider';
+import { AuthService } from './auth/auth.service';
 
 @Injectable()
 export class GqlConfigService implements GqlOptionsFactory {
-  constructor(private readonly auth: Auth) {}
+  constructor(private readonly authService: AuthService) {}
 
   createGqlOptions(): GqlModuleOptions {
     return {
@@ -15,7 +15,7 @@ export class GqlConfigService implements GqlOptionsFactory {
       installSubscriptionHandlers: true,
       context: async ({ req }) => ({
         req,
-        currentUser: await this.auth.getCurrentUser(req)
+        currentUser: await this.authService.getCurrentUser(req)
       }),
       uploads: {
         maxFileSize: 4 * 1024 * 1024, // Max file size: 4 MG

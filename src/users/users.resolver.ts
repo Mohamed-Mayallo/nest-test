@@ -7,26 +7,27 @@ import {
 } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { Users } from './users.entity';
-import { Roles } from '../roles.decorator';
-import { RolesGuard } from '../roles.guard';
+import { AuthMetadata } from '../auth/auth.metadata';
+import { AuthGuard } from '../auth/auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { CreateUserDto, LoginDto } from './users.dto';
 import { CreateUserTransformer } from './users.pipe';
-import { UsersResponse } from './gqltypes';
+import { UsersResponse, UserResponse } from './gql.types';
+import { CurrentUser } from 'src/auth/current-user.decorator';
 
 @Resolver(of => Users)
 export class UsersResolver {
   constructor(private readonly service: UsersService) {}
 
   @Query(of => UsersResponse)
-  @Roles('admin')
-  @UseGuards(RolesGuard)
+  @AuthMetadata('admin', 'hr', 'user')
+  @UseGuards(AuthGuard)
   async users() {
     return await this.service.users();
   }
 
-  @Query(of => Users)
-  async user(@Args('id') id: string) {
+  @Query(of => UserResponse)
+  async user(@Args('id') id: string, @CurrentUser('email') email) {
     return await this.service.userById(id);
   }
 
@@ -35,12 +36,12 @@ export class UsersResolver {
     return 5;
   }
 
-  @Mutation(of => Users)
+  @Mutation(of => UserResponse)
   async createUser(@Args('input', CreateUserTransformer) input: CreateUserDto) {
     return await this.service.createUser(input);
   }
 
-  @Mutation(of => Users)
+  @Mutation(of => UserResponse)
   login(@Args('input') input: LoginDto) {
     return this.service.emailPasswordBasedAuth(input.email, input.password);
   }

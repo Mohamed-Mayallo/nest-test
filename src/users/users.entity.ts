@@ -7,7 +7,8 @@ import {
   UpdatedAt,
   DataType,
   DeletedAt,
-  AllowNull
+  AllowNull,
+  Default
 } from 'sequelize-typescript';
 import { ID, Field, ObjectType } from 'type-graphql';
 import { MinLength, MaxLength, IsEmail } from 'class-validator';
@@ -36,6 +37,11 @@ export class Users extends Model<Users> {
   @MinLength(6)
   @MaxLength(20)
   password: string;
+
+  @Default('user')
+  @Column
+  @Field()
+  role: string;
 
   @Field({ nullable: true })
   avgRate?: number;

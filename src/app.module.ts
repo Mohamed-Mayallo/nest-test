@@ -6,8 +6,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UploadModule } from './upload/upload.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { GqlConfigService } from './graphql.provider';
-import { Auth } from './auth.provider';
-import { UsersService } from './users/users.service';
+import { AuthModule } from './auth/auth.module';
+import { AuthService } from './auth/auth.service';
 
 @Module({
   providers: [],
@@ -16,24 +16,14 @@ import { UsersService } from './users/users.service';
     ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRoot({ rootPath: 'public' }),
     GraphQLModule.forRootAsync({
-      // imports: [Auth],
-      useExisting: GqlConfigService,
-      inject: [Auth]
+      imports: [AuthModule],
+      useClass: GqlConfigService,
+      inject: [AuthService]
     }),
-    // GraphQLModule.forRoot({
-    //   playground: true,
-    //   debug: true,
-    //   autoSchemaFile: 'schema.gql',
-    //   installSubscriptionHandlers: true,
-    //   context: ({ req }) => ({ req }),
-    //   uploads: {
-    //     maxFileSize: 4 * 1024 * 1024, // Max file size: 4 MG
-    //     maxFiles: 5
-    //   }
-    // }),
     DatabasesModule,
     UploadModule,
-    UsersModule
+    UsersModule,
+    AuthModule
   ]
 })
 export class AppModule {}

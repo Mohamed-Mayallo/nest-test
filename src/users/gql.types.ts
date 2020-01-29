@@ -15,3 +15,18 @@ export class UsersResponse {
   @Field(type => [Users], { nullable: 'itemsAndList' })
   data?: Users[];
 }
+
+@ObjectType()
+export class UserResponse {
+  @Field()
+  code: number;
+
+  @Field()
+  success: boolean;
+
+  @Field()
+  message: string;
+
+  @Field(type => Users, { nullable: true })
+  data?: Users;
+}
