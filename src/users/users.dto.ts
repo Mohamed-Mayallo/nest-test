@@ -10,9 +10,12 @@ export class CreateUserDto {
   readonly name: string;
 
   @Field()
+  @MinLength(6)
+  @MaxLength(30)
   readonly password: string;
 
   @Field()
+  @IsEmail()
   readonly email: string;
 
   @Field(type => UploadScalar, { nullable: true })
