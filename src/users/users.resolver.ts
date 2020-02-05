@@ -14,10 +14,15 @@ import { CreateUserDto, LoginDto } from './users.dto';
 import { CreateUserTransformer } from './users.pipe';
 import { UsersResponse, UserResponse } from './gql.types';
 import { CurrentUser } from 'src/auth/current-user.decorator';
+import { LoggerService } from 'src/my-logger/logger.service';
+import { Logger } from 'src/my-logger/logger.decorator';
 
 @Resolver(of => Users)
 export class UsersResolver {
-  constructor(private readonly service: UsersService) {}
+  constructor(
+    private readonly service: UsersService,
+    @Logger('UsersResolver') private logger: LoggerService
+  ) {}
 
   @Query(of => UsersResponse)
   @AuthMetadata('admin', 'hr', 'user')
@@ -43,6 +48,7 @@ export class UsersResolver {
 
   @Mutation(of => UserResponse)
   login(@Args('input') input: LoginDto) {
+    this.logger.log('Hello all');
     return this.service.emailPasswordBasedAuth(input.email, input.password);
   }
 }

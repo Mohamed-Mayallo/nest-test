@@ -8,7 +8,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { GqlConfigService } from './graphql.provider';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
-import { MyLoggerModule } from './my-logger/my-logger.module';
+import { LoggerModule } from './my-logger/logger.module';
 
 @Module({
   providers: [],
@@ -25,7 +25,7 @@ import { MyLoggerModule } from './my-logger/my-logger.module';
     UploadModule,
     UsersModule,
     AuthModule,
-    MyLoggerModule
+    LoggerModule.forRoot()
   ]
 })
 export class AppModule {}
