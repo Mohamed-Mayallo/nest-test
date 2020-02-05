@@ -8,10 +8,12 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { GqlConfigService } from './graphql.provider';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
-import { LoggerModule } from './my-logger/logger.module';
+import { LoggerModule } from './logger/logger.module';
+import { APP_FILTER } from '@nestjs/core';
+import { HttpExceptionFilter } from './exceptions/exception-filter';
 
 @Module({
-  providers: [],
+  providers: [{ provide: APP_FILTER, useClass: HttpExceptionFilter }],
   exports: [],
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),

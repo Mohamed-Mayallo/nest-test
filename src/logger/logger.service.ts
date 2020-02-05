@@ -2,8 +2,8 @@ import * as chalk from 'chalk';
 import * as dateFns from 'date-fns';
 import {
   LoggerService as CommonLoggerService,
-  Injectable,
-  Scope
+  Scope,
+  Injectable
 } from '@nestjs/common';
 
 @Injectable({ scope: Scope.TRANSIENT })
@@ -16,8 +16,8 @@ export class LoggerService implements CommonLoggerService {
 
   log(message: string) {
     console.log(
-      `[${chalk.dim.bold(
-        `LOG | ${dateFns.format(new Date(), 'yyyy-MMdd h:m:s')} | ${
+      `[${chalk.yellow.bold(
+        `LOG | ${dateFns.format(new Date(), 'yyyy-MM-dd h:m:s')} | ${
           this.prefix
         }`
       )}] ${chalk.greenBright(message)}`
@@ -26,31 +26,32 @@ export class LoggerService implements CommonLoggerService {
 
   error(message: string, trace: string) {
     console.log(`
-[${chalk.red(dateFns.format(new Date(), 'yyyy-MMdd h:m:s'))}]
-[${chalk.red.bold('ERROR MESSAGE')}] ${chalk.red(message)}
-[${chalk.red.bold('ERROR TRACE')}] ${chalk.magenta(trace)}`);
+[${chalk.yellow.bold(dateFns.format(new Date(), 'yyyy-MM-dd h:m:s'))}]
+[${chalk.yellow.bold(this.prefix)}]
+[${chalk.yellow.bold('ERROR MESSAGE')}] ${chalk.red(message)}
+[${chalk.yellow.bold('ERROR TRACE')}] ${chalk.red(trace)}`);
   }
 
   warn(message: string) {
     console.log(
       `[${chalk.yellow.bold(
-        `WARNING | ${dateFns.format(new Date(), 'yyyy-MMdd h:m:s')}}`
-      )}] ${chalk.yellow(message)}`
+        `WARNING | ${dateFns.format(new Date(), 'yyyy-MM-dd h:m:s')}}`
+      )}] ${chalk.magentaBright(message)}`
     );
   }
 
   debug(message: string) {
     console.log(
-      `[${chalk.white.bold(
-        `DEBUGGING | ${dateFns.format(new Date(), 'yyyy-MMdd h:m:s')}}`
+      `[${chalk.yellow.bold(
+        `DEBUGGING | ${dateFns.format(new Date(), 'yyyy-MM-dd h:m:s')}}`
       )}] ${chalk.white(message)}`
     );
   }
 
   verbose(message: string) {
     console.log(
-      `[${chalk.dim.bold(
-        `VERBOSE | ${dateFns.format(new Date(), 'yyyy-MMdd h:m:s')}}`
+      `[${chalk.yellow.bold(
+        `VERBOSE | ${dateFns.format(new Date(), 'yyyy-MM-dd h:m:s')}}`
       )}] ${chalk.dim(message)}`
     );
   }

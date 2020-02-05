@@ -14,8 +14,8 @@ import { CreateUserDto, LoginDto } from './users.dto';
 import { CreateUserTransformer } from './users.pipe';
 import { UsersResponse, UserResponse } from './gql.types';
 import { CurrentUser } from 'src/auth/current-user.decorator';
-import { LoggerService } from 'src/my-logger/logger.service';
-import { Logger } from 'src/my-logger/logger.decorator';
+import { Logger } from 'src/logger/logger.decorator';
+import { LoggerService } from 'src/logger/logger.service';
 
 @Resolver(of => Users)
 export class UsersResolver {
@@ -48,7 +48,7 @@ export class UsersResolver {
 
   @Mutation(of => UserResponse)
   login(@Args('input') input: LoginDto) {
-    this.logger.log('Hello all');
+    // this.logger.warn('Warning ..............');
     return this.service.emailPasswordBasedAuth(input.email, input.password);
   }
 }
