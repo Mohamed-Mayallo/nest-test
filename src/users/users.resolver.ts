@@ -47,8 +47,11 @@ export class UsersResolver {
   }
 
   @Mutation(of => UserResponse)
-  login(@Args('input') input: LoginDto) {
-    // this.logger.log('Warning ..............');
-    return this.service.emailPasswordBasedAuth(input.email, input.password);
+  async login(@Args('input') input: LoginDto) {
+    this.logger.verbose('Warning ..............');
+    return await this.service.emailPasswordBasedAuth(
+      input.email,
+      input.password
+    );
   }
 }

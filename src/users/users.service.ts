@@ -29,6 +29,7 @@ export class UsersService {
     email: string,
     password: string
   ): Promise<Users | void> {
+    console.log(email, password, 'sssssssssssssssss');
     let user = await this.repo.findOne({ where: { email } });
     if (!user || !bcrypt.compareSync(password, user.password))
       throw new BaseHttpException('en', 601);

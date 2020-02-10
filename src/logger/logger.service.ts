@@ -35,7 +35,7 @@ export class LoggerService implements CommonLoggerService {
   warn(message: string) {
     console.log(
       `[${chalk.yellow.bold(
-        `WARNING | ${dateFns.format(new Date(), 'yyyy-MM-dd h:m:s')}}`
+        `WARNING | ${dateFns.format(new Date(), 'yyyy-MM-dd h:m:s')}`
       )}] ${chalk.magentaBright(message)}`
     );
   }
@@ -43,7 +43,7 @@ export class LoggerService implements CommonLoggerService {
   debug(message: string) {
     console.log(
       `[${chalk.yellow.bold(
-        `DEBUGGING | ${dateFns.format(new Date(), 'yyyy-MM-dd h:m:s')}}`
+        `DEBUGGING | ${dateFns.format(new Date(), 'yyyy-MM-dd h:m:s')}`
       )}] ${chalk.white(message)}`
     );
   }
@@ -51,7 +51,7 @@ export class LoggerService implements CommonLoggerService {
   verbose(message: string) {
     console.log(
       `[${chalk.yellow.bold(
-        `VERBOSE | ${dateFns.format(new Date(), 'yyyy-MM-dd h:m:s')}}`
+        `VERBOSE | ${dateFns.format(new Date(), 'yyyy-MM-dd h:m:s')}`
       )}] ${chalk.dim(message)}`
     );
   }

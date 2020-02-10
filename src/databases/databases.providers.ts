@@ -10,9 +10,10 @@ export const databaseProviders = [
     useFactory: async (configService: ConfigService) => {
       const sequelize = new Sequelize(<SequelizeOptions>config(configService));
       // To drop all tables and create new ones (for test)
-      // await sequelize.sync({ force: true });
-      // Have to use migration to add new fields
-      await sequelize.sync();
+      // Have to use migration to add new fields if force was false
+      await sequelize.sync({
+        ...(configService.get('NODE_ENV') === 'test' && { force: true })
+      });
       return sequelize;
     },
     inject: [ConfigService]
