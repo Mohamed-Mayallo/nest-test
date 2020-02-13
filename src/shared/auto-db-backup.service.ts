@@ -10,9 +10,7 @@ export class AutoDbBackupService {
   constructor(
     private readonly configService: ConfigService,
     private readonly loggerService: LoggerService
-  ) {
-    if (this.configService.get('NODE_ENV') !== 'test') return;
-  }
+  ) {}
 
   private backupConfig = {
     user: this.configService.get('DB_USER'),
