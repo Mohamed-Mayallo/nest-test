@@ -1,7 +1,7 @@
-import { Injectable, Scope } from '@nestjs/common';
+import * as jwt from 'jsonwebtoken';
+import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { Users } from '../users/users.entity';
-import * as jwt from 'jsonwebtoken';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class AuthService {
   async getCurrentUser(req): Promise<Users> {
     let token = this.getToken(req);
     if (!token) return null;
-    let { id } = await jwt.verify(token, this.configService.get('JWT_SECRET'));
+    let { id } = <any>jwt.verify(token, this.configService.get('JWT_SECRET'));
     return await this.userService.userById(id);
   }
 

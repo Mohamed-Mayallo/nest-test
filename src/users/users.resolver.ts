@@ -10,7 +10,7 @@ import { Users } from './users.entity';
 import { AuthMetadata } from '../auth/auth.metadata';
 import { AuthGuard } from '../auth/auth.guard';
 import { UseGuards } from '@nestjs/common';
-import { CreateUserDto, LoginDto } from './users.dto';
+import { CreateUserDto, LoginDto, VerifyUserDto } from './users.dto';
 import { CreateUserTransformer } from './users.pipe';
 import { UsersResponse, UserResponse } from './gql.types';
 import { CurrentUser } from 'src/auth/current-user.decorator';
@@ -29,6 +29,13 @@ export class UsersResolver {
   @UseGuards(AuthGuard)
   async users() {
     return await this.service.users();
+  }
+
+  @Mutation(of => UsersResponse)
+  @AuthMetadata('admin')
+  @UseGuards(AuthGuard)
+  async verifyUser(@Args('id') id: string) {
+    return await this.service.verifyUser(id);
   }
 
   @Query(of => UserResponse)

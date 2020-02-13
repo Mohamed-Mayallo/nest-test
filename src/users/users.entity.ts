@@ -43,6 +43,11 @@ export class Users extends Model<Users> {
   @Field()
   role: string;
 
+  @Default(false)
+  @Column
+  @Field()
+  isVerified: boolean;
+
   @Field({ nullable: true })
   avgRate?: number;
 

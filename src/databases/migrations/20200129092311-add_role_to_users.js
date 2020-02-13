@@ -9,9 +9,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn('Users', 'role', {
-      type: Sequelize.STRING,
-      defaultValue: 'user'
-    });
+    return queryInterface.removeColumn('Users', 'role');
   }
 };

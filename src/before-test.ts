@@ -22,13 +22,13 @@ beforeAll(async () => {
 // Run before each test
 beforeEach(async () => {
   const sequelizeProvider = <Sequelize>app.get('SEQUELIZE', { strict: false });
-  await sequelizeProvider.truncate({ force: true, cascade: true });
+  await sequelizeProvider.sync();
 });
 
 // Run after each test
 afterEach(async () => {
   const sequelizeProvider = <Sequelize>app.get('SEQUELIZE', { strict: false });
-  await sequelizeProvider.truncate({ force: true, cascade: true });
+  await sequelizeProvider.drop();
 });
 
 // Run after all tests

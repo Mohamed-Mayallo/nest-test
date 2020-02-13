@@ -1,12 +1,6 @@
-import {
-  Injectable,
-  Inject,
-  UnauthorizedException,
-  HttpException,
-  HttpStatus
-} from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { Users } from './users.entity';
-import { CreateUserDto } from './users.dto';
+import { CreateUserDto, VerifyUserDto } from './users.dto';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { ConfigService } from '@nestjs/config';
@@ -29,7 +23,6 @@ export class UsersService {
     email: string,
     password: string
   ): Promise<Users | void> {
-    console.log(email, password, 'sssssssssssssssss');
     let user = await this.repo.findOne({ where: { email } });
     if (!user || !bcrypt.compareSync(password, user.password))
       throw new BaseHttpException('en', 601);
@@ -51,5 +44,17 @@ export class UsersService {
           })
       })
     );
+  }
+
+  async verifyUser(id: string): Promise<Users> {
+    const user = await this.repo.update(
+      { isVerified: true },
+      {
+        where: { id },
+        returning: true
+      }
+    );
+    console.log(user, 'wwwwwwwwww');
+    return user[1][0];
   }
 }

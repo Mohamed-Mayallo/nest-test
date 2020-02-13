@@ -1,4 +1,4 @@
-import { InputType, Field } from 'type-graphql';
+import { InputType, Field, ArgsType } from 'type-graphql';
 import { IsEmail, MinLength, MaxLength } from 'class-validator';
 import { Upload } from '../upload/upload.type';
 import { UploadScalar } from 'src/upload/upload.scalar';
@@ -33,4 +33,10 @@ export class LoginDto {
   @MinLength(6)
   @MaxLength(30)
   readonly password: string;
+}
+
+@ArgsType()
+export class VerifyUserDto {
+  @Field()
+  readonly userId: string;
 }

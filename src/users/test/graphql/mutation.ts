@@ -12,3 +12,19 @@ export const CREATE_USER = `
     }
   }
 `;
+
+export const VERIFY_USER = `
+  mutation verifyUser ($id: String!) {
+    response: verifyUser (id: $id) {
+      code
+      success
+      message
+      data {
+        id
+        name
+        email
+        isVerified
+      }
+    }
+  }
+`;

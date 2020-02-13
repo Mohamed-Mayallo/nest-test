@@ -21,6 +21,7 @@ input LoginDto {
 }
 
 type Mutation {
+  verifyUser(id: String!): UsersResponse!
   createUser(input: CreateUserDto!): UserResponse!
   login(input: LoginDto!): UserResponse!
 }
@@ -45,6 +46,7 @@ type Users {
   name: String!
   email: String!
   role: String!
+  isVerified: Boolean!
   avgRate: Float
   creationDate: DateTime
   updatedOn: DateTime
