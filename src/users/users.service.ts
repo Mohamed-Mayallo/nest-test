@@ -54,7 +54,6 @@ export class UsersService {
         returning: true
       }
     );
-    console.log(user, 'wwwwwwwwww');
     return user[1][0];
   }
 }
