@@ -1,6 +1,6 @@
 import * as request from 'supertest';
 import { CREATE_USER } from '../graphql/mutation';
-import { app } from 'src/before-test';
+import { app } from 'src/common/before-test';
 
 describe('Users end to end test', () => {
   it('create_user', async () => {

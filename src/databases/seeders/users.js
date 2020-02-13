@@ -11,6 +11,7 @@ module.exports.seed = async (sequelize, { truncate, count }) => {
     // Create new users
     let users = [];
     for (let i = 0; i < count; i++) {
+      console.log(i + 1);
       users.push({
         name: faker.name.firstName(),
         email: faker.internet.email(),

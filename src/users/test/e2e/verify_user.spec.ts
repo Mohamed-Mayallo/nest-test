@@ -1,6 +1,6 @@
 import * as request from 'supertest';
 import { VERIFY_USER } from '../graphql/mutation';
-import { app } from 'src/before-test';
+import { app } from 'src/common/before-test';
 import { UserFactory } from 'src/databases/factories/users';
 
 describe('Users end to end test', () => {

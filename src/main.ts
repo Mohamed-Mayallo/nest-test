@@ -4,7 +4,7 @@ import * as rateLimit from 'express-rate-limit';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { GqlResponseInterceptor } from './shared/gql-response.type';
+import { GqlResponseInterceptor } from './graphql/gql-response.type';
 import { LoggerService } from './logger/logger.service';
 
 async function bootstrap() {

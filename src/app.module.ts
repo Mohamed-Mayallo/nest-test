@@ -8,14 +8,14 @@ import { DatabasesModule } from './databases/databases.module';
 import { ConfigModule } from '@nestjs/config';
 import { UploadModule } from './upload/upload.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { GqlConfigService } from './graphql.provider';
+import { GqlConfigService } from './graphql/graphql.provider';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
 import { LoggerModule } from './logger/logger.module';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './exceptions/exception-filter';
 import { ScheduleModule } from '@nestjs/schedule';
-import { AutoDbBackupService } from './shared/auto-db-backup.service';
+import { AutoDbBackupService } from './common/auto-db-backup.service';
 
 const env = dotenv.parse(fs.readFileSync(path.join(__dirname, '../.env')));
 

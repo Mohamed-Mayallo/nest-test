@@ -109,7 +109,7 @@
       "src/(.*)": "<rootDir>/$1"
     },
     "setupFilesAfterEnv": [
-      "<rootDir>/before-test.ts"
+      "<rootDir>/common/before-test.ts"
     ]
   }
 }

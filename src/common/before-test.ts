@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing';
-import { AppModule } from './app.module';
-import { LoggerService } from './logger/logger.service';
+import { AppModule } from '../app.module';
+import { LoggerService } from '../logger/logger.service';
 import { ValidationPipe, INestApplication } from '@nestjs/common';
-import { GqlResponseInterceptor } from './shared/gql-response.type';
+import { GqlResponseInterceptor } from '../graphql/gql-response.type';
 import { Sequelize } from 'sequelize-typescript';
 
 export let app: INestApplication;
