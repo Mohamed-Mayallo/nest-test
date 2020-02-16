@@ -1,6 +1,6 @@
 import * as request from 'supertest';
 import { CREATE_USER } from '../graphql/mutation';
-import { app } from 'src/common/before-test';
+import { app } from 'src/common/before-test-run';
 
 describe('Users end to end test', () => {
   it('create_user', async () => {
@@ -20,5 +20,5 @@ describe('Users end to end test', () => {
     expect(res.body.data.response.code).toBe(200);
     expect(res.body.data.response.data.email).toBe('a@a.com');
     expect(res.body.data.response.data.name).toBe('Ahmed');
-  }, 10000);
+  });
 });

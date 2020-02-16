@@ -1,6 +1,6 @@
 import * as request from 'supertest';
 import { VERIFY_USER } from '../graphql/mutation';
-import { app } from 'src/common/before-test';
+import { app } from 'src/common/before-test-run';
 import { UserFactory } from 'src/databases/factories/users';
 
 describe('Users end to end test', () => {
@@ -20,5 +20,5 @@ describe('Users end to end test', () => {
       });
 
     expect(res.body.data.response.code).toBe(602);
-  }, 10000);
+  });
 });

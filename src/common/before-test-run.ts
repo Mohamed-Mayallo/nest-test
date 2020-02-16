@@ -1,14 +1,17 @@
 import { Test } from '@nestjs/testing';
-import { AppModule } from '../app.module';
-import { LoggerService } from '../logger/logger.service';
 import { ValidationPipe, INestApplication } from '@nestjs/common';
-import { GqlResponseInterceptor } from '../graphql/gql-response.type';
+import { GqlResponseInterceptor } from 'src/graphql/gql-response.type';
 import { Sequelize } from 'sequelize-typescript';
+import { AppModule } from 'src/app.module';
+import { LoggerService } from 'src/logger/logger.service';
 
 export let app: INestApplication;
 
 // Run before all tests
 beforeAll(async () => {
+  // Maximize test timeout
+  jest.setTimeout(100000);
+
   const moduleRef = await Test.createTestingModule({
     imports: [AppModule]
   }).compile();
